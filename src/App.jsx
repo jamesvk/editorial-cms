@@ -3,9 +3,9 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
-import FiltersPanel from './FiltersPanel';
-import ArticleList from './ArticleList';
-import ArticleEditor from './ArticleEditor';
+import FiltersPanel from './components/FiltersPanel';
+import ArticleList from './components/ArticleList';
+import ArticleEditor from './components/ArticleEditor';
 
 function App() {
  
