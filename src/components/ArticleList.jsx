@@ -16,7 +16,19 @@ export default function ArticleList({articles, selectedArticleId, onSelectArticl
                     >
                         <h3>{article.headline}</h3>
                         <p>{article.deck}</p>
-                        <small>By {article.author} | {article.publishAt || "Not Scheduled"}</small>
+                        {/* <small>By {article.author} | {article.publishAt || "Not Scheduled"} | </small> */}
+                        <small>
+                            By {article.author} | {" "} 
+                            Publish: {" "} 
+                            {article.publishAt
+                                ? article.publishAt
+                                : "Not Scheduled"}
+                            {" | "}
+                            Updated:{" "}
+                            {article.updatedAt
+                                ? article.updatedAt
+                                : "-"}
+                        </small>
                     </li>
                 ))}
             </ul>
