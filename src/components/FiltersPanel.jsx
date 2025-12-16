@@ -20,20 +20,6 @@ export default function FiltersPanel({
                     placeholder="Search headline or author"
                 />
             </label>
-
-            <label>
-                Status
-                <select
-                    value={statusFilter}
-                    onChange={(e) => setStatusFilter(e.target.value)}
-                >
-                    <option value="all">All</option>
-                    <option value="Draft">Draft</option>
-                    <option value="In Review">In Review</option>
-                    <option value="Scheduled">Scheduled</option>
-                    <option value="Published">Published</option>
-                </select>
-            </label>
             
             <label>
                 Category
@@ -46,6 +32,20 @@ export default function FiltersPanel({
                     <option value="Photography">Photography</option>
                     <option value="Culture">Culture</option>
                     <option value="Sports">Sports</option>
+                </select>
+            </label>
+
+            <label>
+                Status
+                <select
+                    value={statusFilter}
+                    onChange={(e) => setStatusFilter(e.target.value)}
+                >
+                    <option value="all">All</option>
+                    <option value="Draft">Draft</option>
+                    <option value="In Review">In Review</option>
+                    <option value="Scheduled">Scheduled</option>
+                    <option value="Published">Published</option>
                 </select>
             </label>
 
