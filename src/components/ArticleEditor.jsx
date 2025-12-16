@@ -9,7 +9,7 @@ export default function ArticleEditor({article}) {
     }
     
     return (
-        <section>
+        <section style={{ outline: "1px dotted red" }}>
             <h2>Editor</h2>
             <h3>{article.headline}</h3>
             <p>{article.deck}</p>
