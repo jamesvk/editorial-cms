@@ -9,7 +9,7 @@ import ArticleEditor from './components/ArticleEditor';
 import articlesData from "./data/articles";
 
 function App() {
-  const [articles] = useState(articlesData);
+  const [articles, setArticles] = useState(articlesData);
   const [selectedArticleId, setSelectedArticleId] = useState(null);
 
   const [searchText, setSearchText] = useState("");
@@ -57,8 +57,16 @@ function App() {
     return sorted;
   }, [articles, searchText, statusFilter, categoryFilter, sortMode])
 
-  const selectedArticle = articles.find((a) => a.id === selectedArticleId);
-  //
+  const selectedArticle = articles.find((a) => a.id === selectedArticleId) || null;
+  // passed to <ArticleEditor.  />
+
+  function updateArticle(updatedArticle) {
+    setArticles((prevArticles) => 
+      prevArticles.map((article) => 
+        article.id === updatedArticle.id ? updatedArticle : article
+      )
+    );
+  }
 
   return (
     <div className="app-layout">
@@ -78,9 +86,8 @@ function App() {
         onSelectArticle={setSelectedArticleId}
       />
       <ArticleEditor 
-        article={articles.find(
-          article => article.id === selectedArticleId
-        )}
+        article={selectedArticle}
+        onSave={updateArticle}
       />
     </div>
   )
