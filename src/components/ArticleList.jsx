@@ -11,12 +11,11 @@ export default function ArticleList({articles, selectedArticleId, onSelectArticl
                             cursor: "pointer",
                             fontWeight:
                                 article.id === selectedArticleId ? "bold" : "normal"
-                                /*“If this article’s id matches the selected article id, make it bold. Otherwise, keep it normal.”*/
+                                /* If this article’s id matches the selected article id, make it bold. Otherwise, keep it normal.*/
                         }}
                     >
                         <h3>{article.headline}</h3>
                         <p>{article.deck}</p>
-                        {/* <small>By {article.author} | {article.publishAt || "Not Scheduled"} | </small> */}
                         <small>
                             By {article.author} | {" "} 
                             Publish: {" "} 

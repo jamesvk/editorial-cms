@@ -1,8 +1,9 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useRef} from 'react';
 
 export default function ArticleEditor({article, onSave}) {
     const [draft, setDraft] = useState(null);
     const [tagsInput, setTagsInput] = useState("");
+    const tagInputRef = useRef(null);
 
     useEffect(() => {
         setDraft(article);
@@ -12,10 +13,6 @@ export default function ArticleEditor({article, onSave}) {
     function handleSave() {
         onSave({
             ...draft,
-            tags: tagsInput
-                .split(",")
-                .map((tag) => tag.trim())
-                .filter(Boolean),
             updatedAt: new Date().toISOString()
         })
     }
@@ -119,13 +116,55 @@ export default function ArticleEditor({article, onSave}) {
                     }
                 />
             </label>
-            <label>
-                Tags (comma separated)
-                <input
-                    value={tagsInput}
-                    onChange={(e) => setTagsInput(e.target.value)}
-                />
-            </label>
+            <fieldset>
+                <legend>Tags</legend>
+                <ul style={{ display: "flex", flexWrap: "wrap", gap: "8px", padding: 0, listStyle: "none"}}>
+                    {draft.tags.map((tag) => (
+                        <li key={tag} style={{ border: "1px solid #ccc", padding: "4px 8px", borderRadius:"999px"}}>
+                            {tag}{" "}
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    setDraft((prev) => ({
+                                        ...prev,
+                                        tags: prev.tags.filter((t) => t !== tag),
+                                    }))
+                                }
+                            >
+                                x
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+                <div>
+                    <input
+                        ref={tagInputRef}
+                        placeholder="Add a tag"
+                    />
+                    <button
+                        type="button"
+                        onClick={() => {
+                            const raw = tagInputRef.current?.value ?? "";
+                            const next = raw.trim();
+
+                            if (!next) return;
+
+                            setDraft((prev) => {
+                                const exist = prev.tags.some((t) => t.toLowerCase() === next.toLowerCase());
+
+                                if (exist) return prev;
+                                // In a React state updater, whatever you return becomes new state so you need to return prev 
+                                return {...prev, tags:[...prev.tags, next]};
+                            })
+                            
+                            tagInputRef.current.value = "";
+                            tagInputRef.current.focus();
+                        }}
+                    >
+                        Add
+                    </button>
+                </div>
+            </fieldset>asdfa
             <label>
                 Body
                 <textarea

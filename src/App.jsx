@@ -39,12 +39,14 @@ function App() {
     // sort (good practice to always make copies. Don't alter origina/derived copies)
     const sorted = [...filtered].sort((a,b) => {
       if (sortMode === "headline-asc") {
-        return a.headline.localeCompare(b.headline);
+        return a.headline.localeCompare(b.headline); // localeCompare is a string comparison method. If the result is negative, the first value is before the second value.
       }
 
       if (sortMode === "publish-desc") {
         const aDate = a.publishAt ? new Date(a.publishAt).getTime() : 0;
-        const bDate = b.publishAt ? new Date(b.publishAt).getTime() : 0;
+        // new Date() creates a Date object, not a string or number. It is a "wrapper around a single number: milliseconds since Jan 1, 1970 (UTC)". That number is called a timestamp.
+        // UTC stands for Coordinated Univeral Time - global standard used so every every stystem agrees on what time it is
+        const bDate = b.publishAt ? new Date(b.publishAt).getTime() : 0; // .getTime() gets the ms since epoch (01011970)
         return bDate - aDate;
       }
 
