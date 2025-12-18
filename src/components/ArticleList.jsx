@@ -1,12 +1,16 @@
-export default function ArticleList({articles, selectedArticleId, onSelectArticle}) {
+import { useArticles } from "../context/ArticlesContext"
+
+export default function ArticleList() {
+
+    const {visibleArticles, selectedArticleId, setSelectedArticleId} = useArticles();
     return (
         <section style={{ outline: "1px dotted red" }}>
             <h2>Articles</h2>
             <ul>
-                {articles.map((article) => (
+                {visibleArticles.map((article) => (
                     <li 
                         key={article.id}
-                        onClick={() => onSelectArticle(article.id)}
+                        onClick={() => setSelectedArticleId(article.id)}
                         style={{
                             cursor: "pointer",
                             fontWeight:
