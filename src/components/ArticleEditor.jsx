@@ -1,25 +1,26 @@
 import {useEffect, useState, useRef} from 'react';
+import { useArticles } from '../context/ArticlesContext';
 
-export default function ArticleEditor({article, onSave}) {
+export default function ArticleEditor() {
+    const {selectedArticle, updateArticle} = useArticles();
     const [draft, setDraft] = useState(null);
-    const [tagsInput, setTagsInput] = useState("");
     const tagInputRef = useRef(null);
 
     useEffect(() => {
-        setDraft(article);
-        setTagsInput(article ? article.tags.join(", "): "");
-    }, [article])
+        setDraft(selectedArticle);
+    }, [selectedArticle])
+
 
     function handleSave() {
-        onSave({
-            ...draft,
-            updatedAt: new Date().toISOString()
-        })
-    }
+        if (!draft) return;
 
+        updateArticle({
+            ...draft, 
+            updatedAt: new Date().toISOString()
+        });
+    }
     function handleCancel() {
-        setDraft(article);
-        setTagsInput(article ? article.tags.join(", ") : "")
+        setDraft(selectedArticle);
     }
 
     if (!draft) {
@@ -27,7 +28,7 @@ export default function ArticleEditor({article, onSave}) {
             <section style={{ outline: "1px dotted red" }}>
                 <h2>Editor</h2>
                 <p>Select an article to view details</p>
-             </section>
+            </section>
         )
     }
 
@@ -150,6 +151,7 @@ export default function ArticleEditor({article, onSave}) {
                             if (!next) return;
 
                             setDraft((prev) => {
+                                if (!prev) return prev;
                                 const exist = prev.tags.some((t) => t.toLowerCase() === next.toLowerCase());
 
                                 if (exist) return prev;
