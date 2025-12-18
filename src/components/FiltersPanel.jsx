@@ -6,7 +6,8 @@ export default function FiltersPanel({
     categoryFilter,
     setCategoryFilter,
     sortMode,
-    setSortMode
+    setSortMode,
+    resetDemoData
 }) {
     return (
         <section style={{ outline: "1px dotted red" }}>
@@ -60,6 +61,12 @@ export default function FiltersPanel({
                     <option value="headline-asc">Headline (A-Z)</option>
                 </select>
             </label>
+            <button
+                type="button"
+                onClick={resetDemoData}
+            >
+                Reset demo data
+            </button>
         </section>
     )
 }
