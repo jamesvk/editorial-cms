@@ -1,4 +1,8 @@
-export default function FiltersPanel({
+import { useArticles } from "../context/ArticlesContext"
+
+export default function FiltersPanel() {
+
+    const {
     searchText,
     setSearchText,
     statusFilter,
@@ -8,7 +12,8 @@ export default function FiltersPanel({
     sortMode,
     setSortMode,
     resetDemoData
-}) {
+    } = useArticles();
+
     return (
         <section style={{ outline: "1px dotted red" }}>
             <h2>Filters</h2>
