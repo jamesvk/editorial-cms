@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -9,7 +9,10 @@ import ArticleEditor from './components/ArticleEditor';
 import articlesData from "./data/articles";
 
 function App() {
-  const [articles, setArticles] = useState(articlesData);
+  const [articles, setArticles] = useState(() => {
+    const saved = localStorage.getItem("editorialCMS.articles");
+    return saved ? JSON.parse(saved) : articlesData;
+  });
   const [selectedArticleId, setSelectedArticleId] = useState(null);
 
   const [searchText, setSearchText] = useState("");
@@ -70,6 +73,16 @@ function App() {
     );
   }
 
+  useEffect (() => {
+    localStorage.setItem("editorialCMS.articles", JSON.stringify(articles));
+  }, [articles])
+
+  function resetDemoData() {
+    localStorage.removeItem("EditorialCMS.articles");
+    setArticles(articlesData);
+    setSelectedArticleId(null);
+  }
+
   return (
     <div className="app-layout">
       <FiltersPanel 
@@ -81,6 +94,7 @@ function App() {
         setCategoryFilter = {setCategoryFilter}
         sortMode = {sortMode}
         setSortMode = {setSortMode}
+        resetDemoData={resetDemoData}
       />
       <ArticleList 
         articles={visibleArticles}
