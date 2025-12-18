@@ -164,7 +164,7 @@ export default function ArticleEditor({article, onSave}) {
                         Add
                     </button>
                 </div>
-            </fieldset>asdfa
+            </fieldset>
             <label>
                 Body
                 <textarea
