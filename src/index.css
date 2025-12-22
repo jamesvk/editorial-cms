@@ -1,4 +1,4 @@
-:root {
+/* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -65,4 +65,92 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+*/
+
+/* ========== 1) TOKENS (keep small + useful) ========== */
+:root {
+  /* Typography */
+  --font-sans: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+
+  /* Type scale (editorial) */
+  --text-xs: 0.75rem;   /* 12px */
+  --text-sm: 0.875rem;  /* 14px */
+  --text-md: 1rem;      /* 16px */
+  --text-lg: 1.125rem;  /* 18px */
+  --text-xl: 1.25rem;   /* 20px */
+  --text-2xl: 1.5rem;   /* 24px */
+
+  --lh-tight: 1.15;
+  --lh-normal: 1.45;
+  --lh-relaxed: 1.7;
+
+  /* Spacing scale (rem-based) */
+  --space-0: 0;
+  --space-1: 0.25rem;  /* 4px */
+  --space-2: 0.5rem;   /* 8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.5rem;   /* 24px */
+  --space-6: 2rem;     /* 32px */
+  --space-7: 3rem;     /* 48px */
+
+  /* Colors (NYT/Vogue-ish: neutral, high readability) */
+  --bg: #fbfbf9;
+  --surface: #ffffff;
+  --text: #111111;
+  --muted: #5a5a5a;
+  --border: #e7e7e4;
+
+  /* Accent: used for focus + selected states (not “neon”) */
+  --accent: #111111; /* keep editorial; we’ll use it subtly */
+  --focus: rgba(17, 17, 17, 0.55);
+
+  /* Radius + shadow (very subtle) */
+  --radius-sm: 0.5rem;   /* 8px */
+  --radius-md: 0.75rem;  /* 12px */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
+}
+
+/* ========== 2) RESET / BASE ========== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-md);
+  line-height: var(--lh-normal);
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Make form controls match app typography */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* Images behave nicely in layouts */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Keyboard focus (accessibility) */
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
 }

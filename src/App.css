@@ -1,4 +1,4 @@
-#root {
+/*#root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -39,5 +39,113 @@
 
 .read-the-docs {
   color: #888;
+}*/
+
+.app-shell {
+  min-height: 100svh; /* safe mobile viewpowert on load. */
+  display: flex;
+  flex-direction: column;
 }
 
+.app-header {
+  /* outline: 1.5px dotted green; */
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  max-width: 100%;
+  /* margin-inline: auto; */
+  padding: 10px 16px;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, .4),
+    0 2px 6px rgba(0, 0, 0, .6);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: white; /* need background color or else the content scrolling behind will be seen */
+}
+
+.app-header h2 {
+  /* outline: 1px dotted blue; */
+  font-family: "Edu NSW ACT Cursive", cursive;
+  font-weight: 600;
+  /* line-height: 1.15; */
+  margin: 0;
+  margin-top: var(--space-1);
+  text-shadow: 0 0.5px 0 rgba(0, 0, 0, 0.15); /* text-shadow: x-offset y-offset blur-radius color; */
+}
+
+.app-header p {
+  /* outline: 1px dotted blue; */
+  font-family: "Source Code Pro", monospace;
+  font-optical-sizing: auto;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  margin: 0;
+  opacity: 0.65;
+}
+
+.app-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.filters-panel {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-3);
+  border: 1px solid #e6e6e6;
+  background: #fff;
+  /* border: .5px solid #ddd; */
+  /* border-radius: 0 0 var(--radius-md) var(--radius-md); */
+}
+
+.filters-panel h2 {
+  margin: 0 0 var(--space-1);
+  font-size: var(--text-lg);
+}
+.filters-panel input,
+.filters-panel select {
+  height: var(--space-5);
+  border: 1px solid #d9d9d9;
+  background: #fff;
+}
+
+.filters-panel h2,
+.field_label,
+.field_control,
+.filter_button {
+  font-family: "IBM Plex Sans", sans-serif;
+}
+/* .field_control {
+  font-family: "Source Code Pro", monospace;
+} */
+
+.field {
+  display: grid; 
+  /* grid-template-columns: 65px 1fr; */
+  grid-template-columns: clamp(60px, 20vw, 110px) 1fr;
+  align-items: center;
+  gap: var(--space-2);
+  margin-inline: var(--space-1);
+}
+
+.field_label, 
+.field_control,
+.filter_button {
+  font-size: var(--text-sm);
+}
+
+.field_label {
+  opacity: .75;
+}
+
+/* make inputs/selects fill the available space */
+.field_control {
+  width: 100%;
+  min-width: 0; /* important inside grid/flex especially for overflow: e.g. long placeholders */
+  max-width: 100%; /* in case select/input does not shrink inside grid */
+}
+
+.filter_button {
+  margin-top: var(--space-2);
+}

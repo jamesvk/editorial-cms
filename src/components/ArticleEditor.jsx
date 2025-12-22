@@ -16,9 +16,10 @@ export default function ArticleEditor() {
 
         updateArticle({
             ...draft, 
-            updatedAt: new Date().toISOString()
+            updatedAt: new Date().toISOString().slice(0,10)
         });
     }
+    
     function handleCancel() {
         setDraft(selectedArticle);
     }
@@ -33,7 +34,7 @@ export default function ArticleEditor() {
     }
 
     return (
-        <section>
+        <section className="editor-panel">
             <label>
                 Headline
                 <input

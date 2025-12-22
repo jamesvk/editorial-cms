@@ -10,10 +10,22 @@ import ArticleEditor from './components/ArticleEditor';
 function App() {
 
   return (
-    <div className="app-layout">
-      <FiltersPanel />
-      <ArticleList />
-      <ArticleEditor />
+    <div className="app-shell">
+      <header className="app-header">
+        <h2>Magazine Company</h2>
+        <p>EDITORIAL CMS</p>
+      </header>
+      <main className="app-layout">
+        <div className="filters-region">
+          <FiltersPanel />
+        </div>
+        <div className="list-region">
+          <ArticleList />
+        </div>
+        <div className="editor-region">
+          <ArticleEditor />
+        </div>
+      </main>
     </div>
   )
 }

@@ -4,7 +4,7 @@ export default function ArticleList() {
 
     const {visibleArticles, selectedArticleId, setSelectedArticleId} = useArticles();
     return (
-        <section style={{ outline: "1px dotted red" }}>
+        <section style={{ outline: "1px dotted red" }} className="list-panel">
             <h2>Articles</h2>
             <ul>
                 {visibleArticles.map((article) => (
