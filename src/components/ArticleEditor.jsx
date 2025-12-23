@@ -26,7 +26,7 @@ export default function ArticleEditor() {
 
     if (!draft) {
         return (
-            <section style={{ outline: "1px dotted red" }}>
+            <section>
                 <h2>Editor</h2>
                 <p>Select an article to view details</p>
             </section>

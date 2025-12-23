@@ -87,19 +87,32 @@
 .app-layout {
   display: flex;
   flex-direction: column;
+  gap: var(--space-3);
+  margin-inline: var(--space-2);
+  margin-block: var(--space-3);
+}
+
+.filters-region,
+.list-region {
+  border: 1px solid rgba(0, 0, 0, .3);
+  border-radius: var(--radius-sm);
+  /* border-bottom-right-radius: var(--radius-sm); */
+  overflow: hidden;
+
 }
 
 .filters-panel {
   display: flex;
   flex-direction: column;
   padding: var(--space-3);
-  border: 1px solid #e6e6e6;
-  background: #fff;
+  /* border: 1px solid #e6e6e6; */
+  /* background: #fff; */
   /* border: .5px solid #ddd; */
   /* border-radius: 0 0 var(--radius-md) var(--radius-md); */
 }
 
-.filters-panel h2 {
+.filters-panel h2,
+.list-panel h2 {
   margin: 0 0 var(--space-1);
   font-size: var(--text-lg);
 }
@@ -148,4 +161,72 @@
 
 .filter_button {
   margin-top: var(--space-2);
+}
+/* 
+.filters-region,
+.list-region,
+.editor-region {
+  outline: 2px solid red;
+} */
+
+/* .list-region {
+  border: 1px solid rgba(0, 0, 0, .1);
+  border-radius: var(--radius-sm);
+} */
+
+.list-panel {
+  padding: var(--space-3);
+}
+
+.article-list {
+  list-style: none;
+  /* margin: 0 var(--space-1); */
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-block: var(--space-2);
+}
+
+.article-item {
+  padding: var(--space-1);
+  /* border-bottom: 1px solid #eee; */
+  border: 1px solid rgba(0, 0, 0, .4);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 120ms ease, border-color 120ms ease;
+}
+
+.article-item:hover {
+  background: rgba(0,0,0,.15);
+}
+
+/* .article-item:last-child {
+  border-bottom: none;
+} */
+
+.article-title {
+  margin: 0;
+  font-size: var(--text-md);
+}
+
+.article-deck {
+  margin: var(--space-1) 0;
+  font-size: var(--text-sm);
+  opacity: .85;
+}
+
+.article-meta {
+  font-size: var(--text-xs);
+  opacity: .65;
+}
+
+.article-item.is-selected {
+  /* font-weight: 700; */
+  background: rgba(0, 0, 0, 0.15);
+  border-color: rgba(0, 0, 0, 0.6);
+}
+
+.article-item.is-selected .article-title {
+  font-weight: 700;
 }
