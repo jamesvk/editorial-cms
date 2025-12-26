@@ -93,7 +93,8 @@
 }
 
 .filters-region,
-.list-region {
+.list-region,
+.editor-region {
   border: 1px solid rgba(0, 0, 0, .3);
   border-radius: var(--radius-sm);
   /* border-bottom-right-radius: var(--radius-sm); */
@@ -112,7 +113,9 @@
 }
 
 .filters-panel h2,
-.list-panel h2 {
+.list-panel h2,
+.editor-empty h2,
+.editor-form h2 {
   margin: 0 0 var(--space-1);
   font-size: var(--text-lg);
 }
@@ -126,7 +129,8 @@
 .filters-panel h2,
 .field_label,
 .field_control,
-.filter_button {
+.filter_button,
+.editor-panel * {
   font-family: "IBM Plex Sans", sans-serif;
 }
 /* .field_control {
@@ -144,12 +148,14 @@
 
 .field_label, 
 .field_control,
-.filter_button {
+.filter_button,
+.editor-field * {
   font-size: var(--text-sm);
 }
 
-.field_label {
-  opacity: .75;
+.field_label,
+.editor-field {
+  opacity: .95;
 }
 
 /* make inputs/selects fill the available space */
@@ -229,4 +235,115 @@
 
 .article-item.is-selected .article-title {
   font-weight: 700;
+}
+
+.editor-panel {
+  padding: var(--space-3);
+}
+
+.editor-panel.is-empty {
+  display: flex;
+  flex-direction: column;
+}
+.editor-empty p {
+  opacity: .85;
+  font-size: var(--text-sm);
+   margin: 0 0 var(--space-1);
+}
+
+/* .editor-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.editor--field-label {
+  opacity: .9
+} */
+
+.editor-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-field {
+  display: grid;
+  grid-template-columns: clamp(60px, 20vw, 110px) 1fr;
+  align-items: center;
+  gap: var(--space-2);
+  margin-inline: var(--space-1);    
+}
+
+.editor-control {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid #d9d9d9;
+  background: #fff;
+}
+
+.editor-field textarea.editor-control {
+  /* height: auto; */
+  min-height: 160px;
+  /* padding: 8px 10px; */
+  resize: vertical; /* resize: vertical is a CSS property 
+                    that lets the user resize an element only 
+                    up and down (not left/right). */
+}
+
+.editor-field textarea.editor-deck--body {
+  min-height: 80px;
+}
+
+.editor-field--body,
+.editor-deck--body {
+  align-items: start;
+}
+
+.tags {
+  display: flex;
+  flex-direction: column;
+  min-width: 0; /* prevents long tags or inputs from forcing horizontal overflow in tight layouts */
+  padding: var(--space-2);
+  margin: var(--space-1) 0 var(--space-2);
+}
+
+.tags_list {
+  display: flex; /* does not wrap by default when lack of space. stays linear and shrinks/expands content */
+  flex-wrap: wrap; /* by default flex-wrap is nowrap. Need wrap to flex to next line */
+  gap: var(--space-2);
+  padding: 0;
+  list-style: none;
+  margin-block: var(--space-1);
+}
+
+.tag {
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-sm);
+}
+
+.tag_text {
+  padding-right: var(--space-2);
+  padding-left: var(--space-1);
+}
+
+.tags_add {
+  display: flex;
+  margin-block: var(--space-1);
+}
+
+.tags_input {
+  flex: 1;
+  min-width: 0;
+}
+
+.tags_btn {
+  flex: 0 0 auto;
+}
+
+.editor-actions {
+  display: flex;
+  gap: 0;
+  justify-content: flex-start;
+  align-items: center;
 }
