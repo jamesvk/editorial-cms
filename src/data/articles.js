@@ -31,7 +31,7 @@ const articles = [
     category: "Photography",
     status: "Published",
     publishAt: "2025-08-20",
-    updatedAt: "2025-08-18",
+    updatedAt: "2025-08-15",
     tags: ["photography", "fashion", "visual arts"],
     body: "Fashion photography is evolving rapidly, with many new talents coming into the scene to challenge old norms...",
   },
