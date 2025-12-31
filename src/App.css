@@ -1,4 +1,4 @@
-#root {
+/*#root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -39,5 +39,321 @@
 
 .read-the-docs {
   color: #888;
+}*/
+
+.app-shell {
+  min-height: 100svh; /* safe mobile viewpowert on load. */
+  display: flex;
+  flex-direction: column;
 }
 
+.app-header {
+  /* outline: 1.5px dotted green; */
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  max-width: 100%;
+  /* margin-inline: auto; */
+  padding: 10px 16px;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, .4),
+    0 2px 6px rgba(0, 0, 0, .6);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: white; /* need background color or else the content scrolling behind will be seen */
+}
+
+.app-header h2 {
+  /* outline: 1px dotted blue; */
+  font-family: "Edu NSW ACT Cursive", cursive;
+  font-weight: 600;
+  /* line-height: 1.15; */
+  margin: 0;
+  margin-top: var(--space-1);
+  text-shadow: 0 0.5px 0 rgba(0, 0, 0, 0.15); /* text-shadow: x-offset y-offset blur-radius color; */
+}
+
+.app-header p {
+  /* outline: 1px dotted blue; */
+  font-family: "Source Code Pro", monospace;
+  font-optical-sizing: auto;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  margin: 0;
+  opacity: 0.65;
+}
+
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-inline: var(--space-2);
+  margin-block: var(--space-3);
+}
+
+.filters-region,
+.list-region,
+.editor-region {
+  border: 1px solid rgba(0, 0, 0, .3);
+  border-radius: var(--radius-sm);
+  /* border-bottom-right-radius: var(--radius-sm); */
+  overflow: hidden;
+
+}
+
+.filters-panel {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-3);
+  /* border: 1px solid #e6e6e6; */
+  /* background: #fff; */
+  /* border: .5px solid #ddd; */
+  /* border-radius: 0 0 var(--radius-md) var(--radius-md); */
+}
+
+.filters-panel h2,
+.list-panel h2,
+.editor-empty h2,
+.editor-form h2 {
+  margin: 0 0 var(--space-1);
+  font-size: var(--text-lg);
+}
+.filters-panel input,
+.filters-panel select {
+  height: var(--space-5);
+  border: 1px solid #d9d9d9;
+  background: #fff;
+}
+
+.filters-panel h2,
+.field_label,
+.field_control,
+.filter_button,
+.editor-panel * {
+  font-family: "IBM Plex Sans", sans-serif;
+}
+/* .field_control {
+  font-family: "Source Code Pro", monospace;
+} */
+
+.field {
+  display: grid; 
+  /* grid-template-columns: 65px 1fr; */
+  grid-template-columns: clamp(60px, 20vw, 110px) 1fr;
+  align-items: center;
+  gap: var(--space-2);
+  margin-inline: var(--space-1);
+}
+
+.field_label, 
+.field_control,
+.filter_button,
+.editor-field * {
+  font-size: var(--text-sm);
+}
+
+.field_label,
+.editor-field {
+  opacity: .95;
+}
+
+/* make inputs/selects fill the available space */
+.field_control {
+  width: 100%;
+  min-width: 0; /* important inside grid/flex especially for overflow: e.g. long placeholders */
+  max-width: 100%; /* in case select/input does not shrink inside grid */
+}
+
+.filter_button {
+  margin-top: var(--space-2);
+}
+/* 
+.filters-region,
+.list-region,
+.editor-region {
+  outline: 2px solid red;
+} */
+
+/* .list-region {
+  border: 1px solid rgba(0, 0, 0, .1);
+  border-radius: var(--radius-sm);
+} */
+
+.list-panel {
+  padding: var(--space-3);
+}
+
+.article-list {
+  list-style: none;
+  /* margin: 0 var(--space-1); */
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-block: var(--space-2);
+}
+
+.article-item {
+  padding: var(--space-1);
+  /* border-bottom: 1px solid #eee; */
+  border: 1px solid rgba(0, 0, 0, .4);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 120ms ease, border-color 120ms ease;
+}
+
+.article-item:hover {
+  background: rgba(0,0,0,.15);
+}
+
+/* .article-item:last-child {
+  border-bottom: none;
+} */
+
+.article-title {
+  margin: 0;
+  font-size: var(--text-md);
+}
+
+.article-deck {
+  margin: var(--space-1) 0;
+  font-size: var(--text-sm);
+  opacity: .85;
+}
+
+.article-meta {
+  font-size: var(--text-xs);
+  opacity: .65;
+}
+
+.article-item.is-selected {
+  /* font-weight: 700; */
+  background: rgba(0, 0, 0, 0.15);
+  border-color: rgba(0, 0, 0, 0.6);
+}
+
+.article-item.is-selected .article-title {
+  font-weight: 700;
+}
+
+.editor-panel {
+  padding: var(--space-3);
+}
+
+.editor-panel.is-empty {
+  display: flex;
+  flex-direction: column;
+}
+.editor-empty p {
+  opacity: .85;
+  font-size: var(--text-sm);
+   margin: 0 0 var(--space-1);
+}
+
+/* .editor-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.editor--field-label {
+  opacity: .9
+} */
+
+.editor-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-field {
+  display: grid;
+  grid-template-columns: clamp(60px, 20vw, 110px) 1fr;
+  align-items: center;
+  gap: var(--space-2);
+  margin-inline: var(--space-1);    
+}
+
+.editor-control {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid #d9d9d9;
+  background: #fff;
+}
+
+.editor-field textarea.editor-control {
+  /* height: auto; */
+  min-height: 160px;
+  /* padding: 8px 10px; */
+  resize: vertical; /* resize: vertical is a CSS property 
+                    that lets the user resize an element only 
+                    up and down (not left/right). */
+}
+
+.editor-field textarea.editor-deck--body {
+  min-height: 80px;
+}
+
+.editor-field--body,
+.editor-deck--body {
+  align-items: start;
+}
+
+.tags {
+  display: flex;
+  flex-direction: column;
+  min-width: 0; /* prevents long tags or inputs from forcing horizontal overflow in tight layouts */
+  padding: var(--space-2);
+  margin: var(--space-1) 0 var(--space-2);
+}
+
+.tags_list {
+  display: flex; /* does not wrap by default when lack of space. stays linear and shrinks/expands content */
+  flex-wrap: wrap; /* by default flex-wrap is nowrap. Need wrap to flex to next line */
+  gap: var(--space-2);
+  padding: 0;
+  list-style: none;
+  margin-block: var(--space-1);
+}
+
+.tag {
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-sm);
+}
+
+.tag_text {
+  padding-right: var(--space-2);
+  padding-left: var(--space-1);
+}
+
+.tags_add {
+  display: flex;
+  margin-block: var(--space-1);
+}
+
+.tags_input {
+  flex: 1;
+  min-width: 0;
+}
+
+.tags_btn {
+  flex: 0 0 auto;
+}
+
+.editor-actions {
+  display: flex;
+  gap: 0;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+
+@media (min-width: 768px) {
+  .filters-panel {
+    grid-template-columns: repeat(4, minmax(160px, 1fr));
+    /* align-items: end; */
+  } 1acfcdfed
+
+  .filter
+}

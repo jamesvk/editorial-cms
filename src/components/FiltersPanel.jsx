@@ -15,21 +15,23 @@ export default function FiltersPanel() {
     } = useArticles();
 
     return (
-        <section style={{ outline: "1px dotted red" }}>
-            <h2>Filters</h2>
+        <section className="filters-panel">
+            <h2 className="filters-title">Filters</h2>
 
-            <label>
-                Search
+            <label className="field">
+                <span className="field_label">Search</span>
                 <input 
+                    className="field_control"
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
                     placeholder="Search headline or author"
                 />
             </label>
             
-            <label>
-                Category
+            <label className="field">
+                <span className="field_label">Category</span>
                 <select
+                    className="field_control"
                     value={categoryFilter}
                     onChange={(e) => setCategoryFilter(e.target.value)}
                 >
@@ -41,9 +43,10 @@ export default function FiltersPanel() {
                 </select>
             </label>
 
-            <label>
-                Status
+            <label className="field">
+                <span className="field_label">Status</span>
                 <select
+                    className="field_control"
                     value={statusFilter}
                     onChange={(e) => setStatusFilter(e.target.value)}
                 >
@@ -55,9 +58,10 @@ export default function FiltersPanel() {
                 </select>
             </label>
 
-            <label>
-                Sort
+            <label className="field">
+                <span className="field_label">Sort</span>
                 <select
+                    className="field_control"
                     value={sortMode}
                     onChange={(e) => setSortMode(e.target.value)}
                 >
@@ -67,6 +71,7 @@ export default function FiltersPanel() {
                 </select>
             </label>
             <button
+                className="filter_button"
                 type="button"
                 onClick={resetDemoData}
             >
