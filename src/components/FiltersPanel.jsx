@@ -16,7 +16,7 @@ export default function FiltersPanel() {
 
     return (
         <section className="filters-panel">
-            <h2>Filters</h2>
+            <h2 className="filters-title">Filters</h2>
 
             <label className="field">
                 <span className="field_label">Search</span>

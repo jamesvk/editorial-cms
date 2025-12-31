@@ -347,3 +347,13 @@
   justify-content: flex-start;
   align-items: center;
 }
+
+
+@media (min-width: 768px) {
+  .filters-panel {
+    grid-template-columns: repeat(4, minmax(160px, 1fr));
+    /* align-items: end; */
+  } 1acfcdfed
+
+  .filter
+}
