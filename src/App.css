@@ -415,25 +415,3 @@
   .filters-panel .field:nth-of-type(3) {grid-column:3}
   .filters-panel .field:nth-of-type(4) {grid-column:4}
 }
-
-
-/* @media (min-width: 1280px) {
-  .filters-panel {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(160px, 1fr)); automatically fills each direct children into the next available row/column unless you override the placement. So child 1 goes to column 1, row 1; child 2 goes to column 2, row 1.
-    align-items: end; children might have different height lengths so this pushes all to the bottom border
-    gap: var(--space-2);
-  } 
-
-  .filters-panel .filters-title {
-    grid-column: 1 / -1;
-    margin: 0 0 var(--space-1);
-  }
-
-  .filters-panel .field {
-    display: grid;
-    grid-template-columns: max-content 1fr;
-    align-items: center;
-    gap: var(--space-1);
-  }
-} */
