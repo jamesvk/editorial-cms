@@ -1,46 +1,3 @@
-/*#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}*/
-
 .app-shell {
   min-height: 100svh; /* safe mobile viewpowert on load. */
   display: flex;
@@ -48,13 +5,11 @@
 }
 
 .app-header {
-  /* outline: 1.5px dotted green; */
   display: flex;
   flex-direction: column;
   text-align: center;
   max-width: 100%;
-  /* margin-inline: auto; */
-  padding: 10px 16px;
+  padding: 12px 16px;
   box-shadow:
     0 1px 2px rgba(0, 0, 0, .4),
     0 2px 6px rgba(0, 0, 0, .6);
@@ -62,20 +17,20 @@
   top: 0;
   z-index: 10;
   background: white; /* need background color or else the content scrolling behind will be seen */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 
 .app-header h2 {
-  /* outline: 1px dotted blue; */
   font-family: "Edu NSW ACT Cursive", cursive;
   font-weight: 600;
-  /* line-height: 1.15; */
   margin: 0;
   margin-top: var(--space-1);
-  text-shadow: 0 0.5px 0 rgba(0, 0, 0, 0.15); /* text-shadow: x-offset y-offset blur-radius color; */
+  text-shadow: 0 0.5px 0 rgba(0, 0, 0, 0.15); 
 }
 
 .app-header p {
-  /* outline: 1px dotted blue; */
   font-family: "Source Code Pro", monospace;
   font-optical-sizing: auto;
   font-size: var(--text-sm);
@@ -95,21 +50,19 @@
 .filters-region,
 .list-region,
 .editor-region {
+  background: #fff;
   border: 1px solid rgba(0, 0, 0, .3);
   border-radius: var(--radius-sm);
-  /* border-bottom-right-radius: var(--radius-sm); */
-  overflow: hidden;
-
+  /* overflow: hidden; */
+  box-shadow:
+    0 1px 2px rgba(0,0,0,0.08),
+    0 4px 12px rgba(0,0,0,0.16);
 }
 
 .filters-panel {
   display: flex;
   flex-direction: column;
   padding: var(--space-3);
-  /* border: 1px solid #e6e6e6; */
-  /* background: #fff; */
-  /* border: .5px solid #ddd; */
-  /* border-radius: 0 0 var(--radius-md) var(--radius-md); */
 }
 
 .filters-panel h2,
@@ -133,13 +86,9 @@
 .editor-panel * {
   font-family: "IBM Plex Sans", sans-serif;
 }
-/* .field_control {
-  font-family: "Source Code Pro", monospace;
-} */
 
 .field {
   display: grid; 
-  /* grid-template-columns: 65px 1fr; */
   grid-template-columns: clamp(60px, 20vw, 110px) 1fr;
   align-items: center;
   gap: var(--space-2);
@@ -168,17 +117,6 @@
 .filter_button {
   margin-top: var(--space-2);
 }
-/* 
-.filters-region,
-.list-region,
-.editor-region {
-  outline: 2px solid red;
-} */
-
-/* .list-region {
-  border: 1px solid rgba(0, 0, 0, .1);
-  border-radius: var(--radius-sm);
-} */
 
 .list-panel {
   padding: var(--space-3);
@@ -186,7 +124,6 @@
 
 .article-list {
   list-style: none;
-  /* margin: 0 var(--space-1); */
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -196,7 +133,6 @@
 
 .article-item {
   padding: var(--space-1);
-  /* border-bottom: 1px solid #eee; */
   border: 1px solid rgba(0, 0, 0, .4);
   border-radius: var(--radius-sm);
   cursor: pointer;
@@ -206,10 +142,6 @@
 .article-item:hover {
   background: rgba(0,0,0,.15);
 }
-
-/* .article-item:last-child {
-  border-bottom: none;
-} */
 
 .article-title {
   margin: 0;
@@ -228,7 +160,6 @@
 }
 
 .article-item.is-selected {
-  /* font-weight: 700; */
   background: rgba(0, 0, 0, 0.15);
   border-color: rgba(0, 0, 0, 0.6);
 }
@@ -251,15 +182,6 @@
    margin: 0 0 var(--space-1);
 }
 
-/* .editor-form {
-  display: flex;
-  flex-direction: column;
-}
-
-.editor--field-label {
-  opacity: .9
-} */
-
 .editor-grid {
   display: flex;
   flex-direction: column;
@@ -281,9 +203,7 @@
 }
 
 .editor-field textarea.editor-control {
-  /* height: auto; */
   min-height: 160px;
-  /* padding: 8px 10px; */
   resize: vertical; /* resize: vertical is a CSS property 
                     that lets the user resize an element only 
                     up and down (not left/right). */
