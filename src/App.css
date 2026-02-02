@@ -17,8 +17,8 @@
   top: 0;
   z-index: 10;
   background: white; /* need background color or else the content scrolling behind will be seen */
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px); /* applies a visual effect to whatever is behind an element, not to the element itself. */
+  -webkit-backdrop-filter: blur(10px); /* This is a vendor-prefixed version of backdrop-filter for Safari and older WebKit-based browsers. */
   border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 
@@ -32,7 +32,7 @@
 
 .app-header p {
   font-family: "Source Code Pro", monospace;
-  font-optical-sizing: auto;
+  font-optical-sizing: auto; /* lets a font automatically adjust its design based on the font size being used. */
   font-size: var(--text-sm);
   font-weight: 600;
   margin: 0;
@@ -271,7 +271,7 @@
 @media (min-width: 768px) {
   .article-item {
     display: grid;
-    grid-template-columns: max-content auto;
+    grid-template-columns: max-content auto; /* max-content: make this column as wide as the largest unbroken piece of content inside it. */
     grid-template-rows: auto auto;
     column-gap: var(--space-2);
     row-gap: var(--space-1);
@@ -288,11 +288,14 @@
     grid-column: 2;
     grid-row: 1;
     justify-self: start;
-    white-space: nowrap;
+    white-space: nowrap; /* Do not wrap this text onto multiple lines. */
   }
 
   .article-deck {
-    grid-column: 1 / -1;
+    grid-column: 1 / -1; 
+    /* grid-column: 1 / -1 means span from the first grid line to the last grid line — 
+    where -1 represents the very end — and negative line numbers like -2 refer to the 
+    second-to-last line, which keeps full-width layouts flexible if the number of columns changes. */
     grid-row: 2;
     margin: 0;
   }
