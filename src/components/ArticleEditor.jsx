@@ -5,11 +5,17 @@ export default function ArticleEditor() {
     const {selectedArticle, updateArticle} = useArticles();
     const [draft, setDraft] = useState(null);
     const tagInputRef = useRef(null);
+    // I use useRef to hold a reference to the tag input DOM element so I can read 
+    // its value and clear/focus it imperatively without making the input fully controlled with state.
 
     useEffect(() => {
         setDraft(selectedArticle);
     }, [selectedArticle])
-
+    /* The effect only syncs the draft when selection changes. 
+    This lets me freely edit the draft and change local state without it 
+    being overwritten on every render. If I set draft from selectedArticle during render, 
+    I’d either trigger a render loop or constantly reset user edits, so the form couldn’t 
+    function as an editable buffer. */
 
     function handleSave() {
         if (!draft) return;
@@ -18,6 +24,8 @@ export default function ArticleEditor() {
             ...draft, 
             updatedAt: new Date().toISOString().slice(0,10)
         });
+        // I spread draft to copy all existing article data into a new object, 
+        // then override only updatedAt with the current date formatted as a YYYY-MM-DD ISO string.
     }
     
     function handleCancel() {
@@ -122,6 +130,7 @@ export default function ArticleEditor() {
                             <input
                                 className="editor-control"
                                 type="date"
+                                // Enforces a YYYY-MM-DD format. Provides built-in validation (can’t type letters, only valid dates)
                                 value={draft.publishAt || ""} /* if publishAt is ever null/undefined, React will warn about switching between controlled/uncontrolled */
                                 onChange={(e) =>
                                     setDraft((prev) => ({
@@ -172,8 +181,11 @@ export default function ArticleEditor() {
                         <div className="tags_add">
                             <input
                                 className="tags_input"
-                                ref={tagInputRef}
-                                placeholder=" Add a tag"
+                                ref={tagInputRef} 
+                                /* The ref holds the input’s DOM node, not React state, so changing 
+                                its value doesn’t trigger a re-render. That lets me read and clear 
+                                the field imperatively without updating component state on every keystroke.
+                                placeholder=" Add a tag" */
                             />
                             <button
                                 type="button"

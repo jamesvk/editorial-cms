@@ -47,7 +47,7 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+  box-sizing: border-box; /* width = content + padding + border */
 }
 
 html,
@@ -76,10 +76,11 @@ textarea {
 /* Images behave nicely in layouts */
 img {
   max-width: 100%;
-  display: block;
+  display: block; /* Take up the full width of their container (if width is set to 100%) 
+                  instead of being inline which sits on a text baseline. */
 }
 
-/* Keyboard focus (accessibility) */
+/* Keyboard focus (accessibility) - built-in CSS pseudo-class, not something you defined. */
 :focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 2px;
