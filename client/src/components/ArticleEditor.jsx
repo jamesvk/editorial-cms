@@ -71,7 +71,7 @@ export default function ArticleEditor() {
   };
 
   const handleCancel = () => {
-    setDraft(isCreating ? EMPTY_DRAFT : selectedArticle);
+    selectArticle(null);
     setError('');
   };
 
