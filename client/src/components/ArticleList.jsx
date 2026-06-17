@@ -1,5 +1,11 @@
 import { useArticles } from '../context/ArticlesContext';
 
+const statusColor = (status) => {
+  if (status === 'Published') return 'text-emerald-500';
+  if (status === 'In Review') return 'text-amber-500';
+  return 'text-[#444444]';
+};
+
 export default function ArticleList() {
   const {
     visibleArticles,
@@ -10,51 +16,52 @@ export default function ArticleList() {
     loading,
   } = useArticles();
 
-  if (loading) {
-    return (
-      <section className="p-4">
-        <h2 className="text-sm font-semibold text-gray-900 uppercase tracking-widest mb-4">Articles</h2>
-        <p className="text-sm text-gray-400">Loading…</p>
-      </section>
-    );
-  }
-
   return (
     <section className="p-4">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-sm font-semibold text-gray-900 uppercase tracking-widest">Articles</h2>
+      <div className="flex items-center justify-between mb-5">
+        <h2 className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#666666]">Articles</h2>
         <button
           onClick={startCreating}
-          className="rounded bg-gray-900 px-3 py-1.5 text-xs font-medium text-white hover:bg-gray-700 transition-colors"
+          className="text-[10px] uppercase tracking-widest text-[#666666] hover:text-white border border-[#222222] hover:border-[#555555] px-2.5 py-1 rounded transition-colors"
         >
           + New
         </button>
       </div>
 
-      {visibleArticles.length === 0 ? (
-        <p className="text-sm text-gray-400">No articles found.</p>
+      {loading ? (
+        <p className="text-[10px] uppercase tracking-widest text-[#333333] py-10 text-center">Loading…</p>
+      ) : visibleArticles.length === 0 ? (
+        <p className="text-[10px] uppercase tracking-widest text-[#333333] py-10 text-center">No articles</p>
       ) : (
-        <ul className="space-y-2">
+        <ul className="list-none space-y-px">
           {visibleArticles.map((article) => {
             const isSelected = !isCreating && article._id === selectedArticleId;
             return (
               <li
                 key={article._id}
                 onClick={() => selectArticle(article._id)}
-                className={`cursor-pointer rounded p-3 border transition-colors ${
-                  isSelected
-                    ? 'bg-gray-900 border-gray-900 text-white'
-                    : 'bg-white border-gray-200 hover:border-gray-400 text-gray-900'
-                }`}
+                className={`
+                  cursor-pointer p-4 border-l-2 transition-all duration-200 rounded-r
+                  ${isSelected
+                    ? 'border-l-white bg-[#1a1a1a]'
+                    : 'border-l-transparent hover:bg-[#111111] hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(0,0,0,0.5)]'
+                  }
+                `}
               >
-                <h3 className="text-sm font-medium leading-snug">{article.headline}</h3>
-                <p className={`text-xs mt-1 line-clamp-2 ${isSelected ? 'text-gray-300' : 'text-gray-500'}`}>
+                <h3 className="text-sm font-medium text-[#f5f5f5] leading-snug mb-1">
+                  {article.headline}
+                </h3>
+                <p className="text-xs text-[#666666] truncate mb-2.5">
                   {article.deck}
                 </p>
-                <p className={`text-xs mt-2 ${isSelected ? 'text-gray-400' : 'text-gray-400'}`}>
-                  {article.author} · {article.status} ·{' '}
-                  {article.publishAt ? article.publishAt : 'Not scheduled'}
-                </p>
+                <div className="flex items-center gap-3">
+                  <span className="text-[10px] uppercase tracking-widest text-[#444444]">
+                    {article.author}
+                  </span>
+                  <span className={`text-[10px] uppercase tracking-widest ${statusColor(article.status)}`}>
+                    {article.status}
+                  </span>
+                </div>
               </li>
             );
           })}

@@ -12,25 +12,18 @@ const EMPTY_DRAFT = {
   body: '',
 };
 
+const inputClass = 'w-full bg-[#0a0a0a] border border-[#222222] text-[#f5f5f5] text-sm rounded px-3 py-2.5 focus:outline-none focus:border-white transition-colors placeholder:text-[#333333] [color-scheme:dark]';
+const labelClass = 'block text-[10px] uppercase tracking-widest text-[#666666] mb-1.5';
+
 export default function ArticleEditor() {
-  const {
-    selectedArticle,
-    isCreating,
-    createArticle,
-    updateArticle,
-    selectArticle,
-  } = useArticles();
+  const { selectedArticle, isCreating, createArticle, updateArticle, selectArticle } = useArticles();
   const [draft, setDraft] = useState(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const tagInputRef = useRef(null);
 
   useEffect(() => {
-    if (isCreating) {
-      setDraft(EMPTY_DRAFT);
-    } else {
-      setDraft(selectedArticle);
-    }
+    setDraft(isCreating ? EMPTY_DRAFT : selectedArticle);
     setError('');
   }, [selectedArticle, isCreating]);
 
@@ -80,160 +73,160 @@ export default function ArticleEditor() {
     onChange: (e) => setDraft((prev) => ({ ...prev, [key]: e.target.value })),
   });
 
-  const inputClass =
-    'mt-1 block w-full rounded border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400';
-
-  if (!draft) {
-    return (
-      <div className="flex flex-col items-center justify-center h-full text-gray-400">
-        <p className="text-sm">
-          Select an article or click + New to get started
-        </p>
-      </div>
-    );
-  }
+  const isOpen = !!draft;
 
   return (
-    <div className="p-6 max-w-3xl mx-auto">
-      <h2 className="text-sm font-semibold text-gray-900 uppercase tracking-widest mb-6">
-        {isCreating ? 'New Article' : 'Editor'}
-      </h2>
-
-      {error && (
-        <p className="mb-4 text-sm text-red-600 bg-red-50 border border-red-200 rounded px-3 py-2">
-          {error}
-        </p>
+    <>
+      {/* Mobile backdrop */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/70 z-40 md:hidden"
+          onClick={() => selectArticle(null)}
+        />
       )}
 
-      <div className="space-y-4">
-        <label className="block">
-          <span className="text-sm font-medium text-gray-700">Headline</span>
-          <input className={inputClass} {...field('headline')} />
-        </label>
+      <div
+        className={`
+          bg-[#111111] overflow-y-auto
+          ${isOpen
+            ? 'fixed bottom-0 inset-x-0 z-50 max-h-[90vh] rounded-t-2xl md:static md:flex-1 md:rounded-none md:max-h-none'
+            : 'hidden md:flex md:flex-1 md:items-center md:justify-center'
+          }
+        `}
+      >
+        {!draft ? (
+          <p className="text-[10px] uppercase tracking-[0.3em] text-[#2a2a2a]">No article selected</p>
+        ) : (
+          <div className="p-6 max-w-2xl mx-auto w-full">
+            {/* Mobile drag handle */}
+            <div className="md:hidden flex justify-center mb-5">
+              <div className="w-10 h-0.5 bg-[#333333] rounded-full" />
+            </div>
 
-        <label className="block">
-          <span className="text-sm font-medium text-gray-700">Deck</span>
-          <textarea
-            className={`${inputClass} resize-none`}
-            rows={2}
-            {...field('deck')}
-          />
-        </label>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#666666]">
+                {isCreating ? 'New Article' : 'Edit Article'}
+              </h2>
+            </div>
 
-        <div className="grid grid-cols-2 gap-4">
-          <label className="block">
-            <span className="text-sm font-medium text-gray-700">Author</span>
-            <input className={inputClass} {...field('author')} />
-          </label>
+            {error && (
+              <p className="mb-5 text-xs text-red-400 bg-red-950/20 border border-red-900/40 rounded px-3 py-2.5">
+                {error}
+              </p>
+            )}
 
-          <label className="block">
-            <span className="text-sm font-medium text-gray-700">Category</span>
-            <select className={inputClass} {...field('category')}>
-              <option value="Fashion">Fashion</option>
-              <option value="Photography">Photography</option>
-              <option value="Culture">Culture</option>
-              <option value="Sports">Sports</option>
-            </select>
-          </label>
+            <div className="space-y-5">
+              <div>
+                <label className={labelClass}>Headline</label>
+                <input className={inputClass} {...field('headline')} />
+              </div>
 
-          <label className="block">
-            <span className="text-sm font-medium text-gray-700">Status</span>
-            <select className={inputClass} {...field('status')}>
-              <option value="Draft">Draft</option>
-              <option value="In Review">In Review</option>
-              <option value="Published">Published</option>
-            </select>
-          </label>
+              <div>
+                <label className={labelClass}>Deck</label>
+                <textarea className={`${inputClass} resize-none`} rows={2} {...field('deck')} />
+              </div>
 
-          <label className="block">
-            <span className="text-sm font-medium text-gray-700">
-              Publish At
-            </span>
-            <input type="date" className={inputClass} {...field('publishAt')} />
-          </label>
-        </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className={labelClass}>Author</label>
+                  <input className={inputClass} {...field('author')} />
+                </div>
+                <div>
+                  <label className={labelClass}>Category</label>
+                  <select className={inputClass} {...field('category')}>
+                    <option value="Fashion">Fashion</option>
+                    <option value="Photography">Photography</option>
+                    <option value="Culture">Culture</option>
+                    <option value="Sports">Sports</option>
+                  </select>
+                </div>
+                <div>
+                  <label className={labelClass}>Status</label>
+                  <select className={inputClass} {...field('status')}>
+                    <option value="Draft">Draft</option>
+                    <option value="In Review">In Review</option>
+                    <option value="Published">Published</option>
+                  </select>
+                </div>
+                <div>
+                  <label className={labelClass}>Publish At</label>
+                  <input type="date" className={inputClass} {...field('publishAt')} />
+                </div>
+              </div>
 
-        <label className="block">
-          <span className="text-sm font-medium text-gray-700">Body</span>
-          <textarea
-            className={`${inputClass} resize-none`}
-            rows={8}
-            {...field('body')}
-          />
-        </label>
+              <div>
+                <label className={labelClass}>Body</label>
+                <textarea className={`${inputClass} resize-none`} rows={8} {...field('body')} />
+              </div>
 
-        {/* Tags */}
-        <fieldset className="border border-gray-200 rounded p-3">
-          <legend className="text-sm font-medium text-gray-700 px-1">
-            Tags
-          </legend>
-          <div className="flex flex-wrap gap-2 mb-3">
-            {draft.tags?.map((tag) => (
-              <span
-                key={tag}
-                className="flex items-center gap-1 bg-gray-100 text-gray-700 text-xs rounded px-2 py-1"
+              {/* Tags */}
+              <div>
+                <label className={labelClass}>Tags</label>
+                <div className="flex flex-wrap gap-1.5 mb-2.5">
+                  {draft.tags?.map((tag) => (
+                    <span
+                      key={tag}
+                      className="flex items-center gap-1.5 bg-[#1a1a1a] border border-[#2a2a2a] text-[#f5f5f5] text-[10px] uppercase tracking-widest rounded px-2.5 py-1"
+                    >
+                      {tag}
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setDraft((prev) => ({ ...prev, tags: prev.tags.filter((t) => t !== tag) }))
+                        }
+                        className="text-[#555555] hover:text-white leading-none transition-colors"
+                      >
+                        ×
+                      </button>
+                    </span>
+                  ))}
+                </div>
+                <div className="flex gap-2">
+                  <input
+                    ref={tagInputRef}
+                    className={`${inputClass} flex-1`}
+                    placeholder="Add tag"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const next = tagInputRef.current?.value.trim();
+                      if (!next) return;
+                      setDraft((prev) => {
+                        if (!prev) return prev;
+                        const exists = prev.tags?.some((t) => t.toLowerCase() === next.toLowerCase());
+                        if (exists) return prev;
+                        return { ...prev, tags: [...(prev.tags ?? []), next] };
+                      });
+                      tagInputRef.current.value = '';
+                      tagInputRef.current.focus();
+                    }}
+                    className="px-4 py-2 border border-[#222222] text-[#666666] hover:text-white hover:border-[#555555] text-[10px] uppercase tracking-widest rounded transition-colors"
+                  >
+                    Add
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex gap-3 mt-8 pb-2">
+              <button
+                onClick={handleSave}
+                disabled={saving}
+                className="flex-1 py-2.5 bg-white text-black text-[10px] font-bold uppercase tracking-widest rounded hover:bg-[#e0e0e0] disabled:opacity-40 transition-colors"
               >
-                {tag}
-                <button
-                  type="button"
-                  onClick={() =>
-                    setDraft((prev) => ({
-                      ...prev,
-                      tags: prev.tags.filter((t) => t !== tag),
-                    }))
-                  }
-                  className="text-gray-400 hover:text-gray-700 leading-none"
-                >
-                  ×
-                </button>
-              </span>
-            ))}
+                {saving ? 'Saving…' : isCreating ? 'Create' : 'Save'}
+              </button>
+              <button
+                onClick={handleCancel}
+                className="px-5 py-2.5 border border-[#222222] text-[#666666] hover:text-white hover:border-[#555555] text-[10px] uppercase tracking-widest rounded transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
           </div>
-          <div className="flex gap-2">
-            <input
-              ref={tagInputRef}
-              className="flex-1 rounded border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
-              placeholder="Add a tag"
-            />
-            <button
-              type="button"
-              onClick={() => {
-                const next = tagInputRef.current?.value.trim();
-                if (!next) return;
-                setDraft((prev) => {
-                  if (!prev) return prev;
-                  const exists = prev.tags?.some(
-                    (t) => t.toLowerCase() === next.toLowerCase(),
-                  );
-                  if (exists) return prev;
-                  return { ...prev, tags: [...(prev.tags ?? []), next] };
-                });
-                tagInputRef.current.value = '';
-                tagInputRef.current.focus();
-              }}
-              className="rounded bg-gray-100 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-200"
-            >
-              Add
-            </button>
-          </div>
-        </fieldset>
+        )}
       </div>
-
-      <div className="flex gap-3 mt-6">
-        <button
-          onClick={handleSave}
-          disabled={saving}
-          className="rounded bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50 transition-colors"
-        >
-          {saving ? 'Saving…' : isCreating ? 'Create' : 'Save'}
-        </button>
-        <button
-          onClick={handleCancel}
-          className="rounded border border-gray-300 px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 transition-colors"
-        >
-          Cancel
-        </button>
-      </div>
-    </div>
+    </>
   );
 }
