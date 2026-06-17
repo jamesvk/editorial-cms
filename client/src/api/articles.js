@@ -1,9 +1,16 @@
 const BASE = `${import.meta.env.VITE_API_URL || ''}/api/articles`;
 
+function getToken() {
+  return localStorage.getItem('token');
+}
+
 async function request(path, options = {}) {
+  const token = getToken();
   const res = await fetch(`${BASE}${path}`, {
-    headers: { 'Content-Type': 'application/json' },
-    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
     ...options,
   });
   const data = await res.json();

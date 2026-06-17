@@ -7,9 +7,16 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(undefined);
 
   useEffect(() => {
+    if (!localStorage.getItem('token')) {
+      setUser(null);
+      return;
+    }
     fetchMe()
       .then(setUser)
-      .catch(() => setUser(null));
+      .catch(() => {
+        localStorage.removeItem('token');
+        setUser(null);
+      });
   }, []);
 
   const login = async (email, password) => {
@@ -22,8 +29,8 @@ export function AuthProvider({ children }) {
     setUser(data);
   };
 
-  const logout = async () => {
-    await logoutUser();
+  const logout = () => {
+    logoutUser();
     setUser(null);
   };
 

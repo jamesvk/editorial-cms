@@ -10,12 +10,14 @@ const signToken = (id) =>
     expiresIn: process.env.JWT_EXPIRES_IN || '7d',
   });
 
-const cookieOptions = {
-  httpOnly: true,
-  secure: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
-  sameSite: 'strict',
-  maxAge: 7 * 24 * 60 * 60 * 1000,
-};
+// HTTP-only cookies are more secure but blocked by modern browsers in cross-origin
+// deployments without a shared domain (e.g. Vercel frontend + Render backend).
+// Correct cookieOptions if reverting:
+//   httpOnly: true,
+//   secure: process.env.NODE_ENV === 'production',
+//   sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+//   maxAge: 7 * 24 * 60 * 60 * 1000,
+// const cookieOptions = { ... };
 
 // POST /api/auth/register
 router.post('/register', async (req, res) => {
@@ -30,8 +32,10 @@ router.post('/register', async (req, res) => {
     const user = await User.create({ name, email, password });
     const token = signToken(user._id);
 
-    res.cookie('token', token, cookieOptions);
-    res.status(201).json({ _id: user._id, name: user.name, email: user.email });
+    // res.cookie('token', token, cookieOptions);
+    res
+      .status(201)
+      .json({ _id: user._id, name: user.name, email: user.email, token });
   } catch {
     res.status(500).json({ message: 'Server error during registration' });
   }
@@ -49,8 +53,8 @@ router.post('/login', async (req, res) => {
 
     const token = signToken(user._id);
 
-    res.cookie('token', token, cookieOptions);
-    res.json({ _id: user._id, name: user.name, email: user.email });
+    // res.cookie('token', token, cookieOptions);
+    res.json({ _id: user._id, name: user.name, email: user.email, token });
   } catch {
     res.status(500).json({ message: 'Server error during login' });
   }
@@ -58,7 +62,7 @@ router.post('/login', async (req, res) => {
 
 // POST /api/auth/logout
 router.post('/logout', (_req, res) => {
-  res.clearCookie('token', cookieOptions);
+  // res.clearCookie('token', cookieOptions);
   res.json({ message: 'Logged out' });
 });
 
