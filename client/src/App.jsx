@@ -13,8 +13,8 @@ export default function App() {
 
   if (user === undefined) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
-        <p className="text-[10px] uppercase tracking-[0.3em] text-[#333333]">Loading</p>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <p className="text-sm text-gray-400">Loading…</p>
       </div>
     );
   }
@@ -27,16 +27,17 @@ export default function App() {
 
   return (
     <ArticlesProvider>
-      <div className="min-h-screen flex flex-col bg-[#0a0a0a] text-[#f5f5f5]">
-        <header className="flex items-center justify-between px-6 h-14 border-b border-[#222222] shrink-0">
-          <span className="text-[11px] font-bold tracking-[0.3em] uppercase text-white">
-            Editorial CMS
-          </span>
-          <div className="flex items-center gap-5">
-            <span className="text-[10px] uppercase tracking-widest text-[#444444]">{user.name}</span>
+      <div className="min-h-screen flex flex-col bg-gray-50">
+        <header className="flex items-center justify-between px-6 py-4 bg-white border-b border-gray-200">
+          <div>
+            <h1 className="text-lg font-semibold text-gray-900">Magazine Company</h1>
+            <p className="text-xs text-gray-400 uppercase tracking-widest">Editorial CMS</p>
+          </div>
+          <div className="flex items-center gap-4">
+            <span className="text-sm text-gray-500">{user.name}</span>
             <button
               onClick={logout}
-              className="text-[10px] uppercase tracking-widest text-[#444444] hover:text-white transition-colors"
+              className="text-sm text-gray-500 hover:text-gray-900 underline"
             >
               Sign out
             </button>
@@ -44,23 +45,15 @@ export default function App() {
         </header>
 
         <main className="flex flex-1 overflow-hidden">
-          {/* Filters — desktop left sidebar */}
-          <aside className="hidden md:block w-52 shrink-0 border-r border-[#222222] overflow-y-auto">
+          <div className="w-56 shrink-0 border-r border-gray-200 bg-white overflow-y-auto">
             <FiltersPanel />
-          </aside>
-
-          {/* Center column: mobile filters toggle + article list */}
-          <div className="flex flex-col flex-1 md:w-80 md:flex-none overflow-hidden md:border-r md:border-[#222222]">
-            <div className="md:hidden border-b border-[#222222]">
-              <FiltersPanel />
-            </div>
-            <div className="flex-1 overflow-y-auto">
-              <ArticleList />
-            </div>
           </div>
-
-          {/* Editor — desktop right panel, mobile bottom sheet (self-positioned) */}
-          <ArticleEditor />
+          <div className="w-80 shrink-0 border-r border-gray-200 bg-white overflow-y-auto">
+            <ArticleList />
+          </div>
+          <div className="flex-1 overflow-y-auto">
+            <ArticleEditor />
+          </div>
         </main>
       </div>
     </ArticlesProvider>

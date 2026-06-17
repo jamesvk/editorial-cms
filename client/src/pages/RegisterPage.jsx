@@ -22,75 +22,68 @@ export default function RegisterPage({ onSwitch }) {
     }
   };
 
-  const inputClass = 'w-full bg-[#111111] border border-[#222222] text-[#f5f5f5] text-sm rounded px-4 py-3 focus:outline-none focus:border-white transition-colors placeholder:text-[#333333]';
-  const labelClass = 'block text-[10px] uppercase tracking-widest text-[#666666] mb-1.5';
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
-      <div className="w-full max-w-sm px-8">
-        <div className="mb-10">
-          <h1 className="text-[11px] font-bold tracking-[0.3em] uppercase text-white mb-2">
-            Editorial CMS
-          </h1>
-          <p className="text-[10px] uppercase tracking-widest text-[#444444]">Create your account</p>
-        </div>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="w-full max-w-md bg-white rounded-lg shadow p-8">
+        <h1 className="text-2xl font-semibold text-gray-900 mb-1">Editorial CMS</h1>
+        <p className="text-sm text-gray-500 mb-6">Create your account</p>
 
         {error && (
-          <p className="mb-6 text-xs text-red-400 border border-red-900/40 rounded px-4 py-3 bg-red-950/20">
+          <p className="mb-4 text-sm text-red-600 bg-red-50 border border-red-200 rounded px-3 py-2">
             {error}
           </p>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <div>
-            <label className={labelClass}>Name</label>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <label className="block">
+            <span className="text-sm font-medium text-gray-700">Name</span>
             <input
               type="text"
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className={inputClass}
+              className="mt-1 block w-full rounded border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
             />
-          </div>
+          </label>
 
-          <div>
-            <label className={labelClass}>Email</label>
+          <label className="block">
+            <span className="text-sm font-medium text-gray-700">Email</span>
             <input
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className={inputClass}
+              className="mt-1 block w-full rounded border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
             />
-          </div>
+          </label>
 
-          <div>
-            <label className={labelClass}>Password</label>
+          <label className="block">
+            <span className="text-sm font-medium text-gray-700">Password</span>
             <input
               type="password"
               required
               minLength={6}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className={inputClass}
+              className="mt-1 block w-full rounded border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
             />
-          </div>
+          </label>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-white text-black text-[10px] font-bold uppercase tracking-widest rounded hover:bg-[#e0e0e0] disabled:opacity-40 transition-colors mt-2"
+            className="w-full rounded bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50 transition-colors"
           >
             {loading ? 'Creating account…' : 'Create account'}
           </button>
         </form>
 
-        <p className="mt-8 text-[10px] uppercase tracking-widest text-[#444444] text-center">
+        <p className="mt-6 text-center text-sm text-gray-500">
           Already have an account?{' '}
           <button
             type="button"
             onClick={onSwitch}
-            className="text-white hover:text-[#cccccc] transition-colors"
+            className="font-medium text-gray-900 underline hover:text-gray-600"
           >
             Sign in
           </button>
