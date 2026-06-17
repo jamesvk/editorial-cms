@@ -40,7 +40,7 @@ export default function ArticleEditor() {
     setError('');
     try {
       if (isCreating) {
-        const created = await createArticle({
+        await createArticle({
           headline: draft.headline,
           deck: draft.deck,
           author: draft.author,
@@ -50,7 +50,6 @@ export default function ArticleEditor() {
           tags: draft.tags,
           body: draft.body,
         });
-        selectArticle(created._id);
       } else {
         await updateArticle(draft._id, {
           headline: draft.headline,
@@ -63,6 +62,7 @@ export default function ArticleEditor() {
           body: draft.body,
         });
       }
+      selectArticle(null);
     } catch (err) {
       setError(err.message);
     } finally {
