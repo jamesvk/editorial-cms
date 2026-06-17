@@ -12,6 +12,7 @@ export function ArticlesProvider({ children }) {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedArticleId, setSelectedArticleId] = useState(null);
+  const [isCreating, setIsCreating] = useState(false);
 
   const [searchText, setSearchText] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
@@ -24,6 +25,16 @@ export function ArticlesProvider({ children }) {
       .catch(console.error)
       .finally(() => setLoading(false));
   }, []);
+
+  const selectArticle = (id) => {
+    setSelectedArticleId(id);
+    setIsCreating(false);
+  };
+
+  const startCreating = () => {
+    setSelectedArticleId(null);
+    setIsCreating(true);
+  };
 
   const createArticle = async (payload) => {
     const created = await apiCreate(payload);
@@ -87,7 +98,9 @@ export function ArticlesProvider({ children }) {
     statusFilter,
     categoryFilter,
     sortMode,
-    setSelectedArticleId,
+    isCreating,
+    selectArticle,
+    startCreating,
     setSearchText,
     setStatusFilter,
     setCategoryFilter,
