@@ -1,5 +1,11 @@
 import { useArticles } from '../context/ArticlesContext';
 
+const statusPill = (status) => {
+  if (status === 'Published') return 'bg-emerald-100 text-emerald-700';
+  if (status === 'In Review') return 'bg-amber-100 text-amber-700';
+  return 'bg-[#f0f0f0] text-[#888888]';
+};
+
 export default function ArticleList() {
   const {
     visibleArticles,
@@ -10,29 +16,28 @@ export default function ArticleList() {
     loading,
   } = useArticles();
 
-  if (loading) {
-    return (
-      <section className="p-4">
-        <h2 className="text-sm font-semibold text-gray-900 uppercase tracking-widest mb-4">Articles</h2>
-        <p className="text-sm text-gray-400">Loading…</p>
-      </section>
-    );
-  }
-
   return (
-    <section className="p-4">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-sm font-semibold text-gray-900 uppercase tracking-widest">Articles</h2>
+    <section className="px-4 pt-5 pb-4">
+      <div className="flex items-center justify-between mb-5">
+        <h2 className="text-[10px] font-bold text-[#111111] uppercase tracking-[0.2em]">
+          :: Articles ::
+        </h2>
         <button
           onClick={startCreating}
-          className="rounded bg-gray-900 px-3 py-1.5 text-xs font-medium text-white hover:bg-gray-700 transition-colors"
+          className="px-3 py-1.5 bg-[#111111] text-white text-[10px] font-bold uppercase tracking-widest hover:bg-[#333333] transition-colors"
         >
           + New
         </button>
       </div>
 
-      {visibleArticles.length === 0 ? (
-        <p className="text-sm text-gray-400">No articles found.</p>
+      {loading ? (
+        <p className="text-[10px] uppercase tracking-widest text-[#aaaaaa] py-8 text-center">
+          Loading…
+        </p>
+      ) : visibleArticles.length === 0 ? (
+        <p className="text-[10px] uppercase tracking-widest text-[#aaaaaa] py-8 text-center">
+          No articles found
+        </p>
       ) : (
         <ul className="space-y-2">
           {visibleArticles.map((article) => {
@@ -41,20 +46,28 @@ export default function ArticleList() {
               <li
                 key={article._id}
                 onClick={() => selectArticle(article._id)}
-                className={`cursor-pointer rounded p-3 border transition-colors ${
+                className={`cursor-pointer p-4 rounded bg-white transition-all duration-150 ${
                   isSelected
-                    ? 'bg-gray-900 border-gray-900 text-white'
-                    : 'bg-white border-gray-200 hover:border-gray-400 text-gray-900'
+                    ? 'shadow-md ring-1 ring-[#111111]'
+                    : 'shadow-sm hover:shadow-md'
                 }`}
               >
-                <h3 className="text-sm font-medium leading-snug">{article.headline}</h3>
-                <p className={`text-xs mt-1 line-clamp-2 ${isSelected ? 'text-gray-300' : 'text-gray-500'}`}>
+                <div className="flex items-start justify-between gap-2 mb-1">
+                  <h3 className="text-sm font-semibold text-[#111111] leading-snug">
+                    {article.headline}
+                  </h3>
+                  <span
+                    className={`shrink-0 text-[9px] uppercase tracking-widest px-2 py-0.5 rounded-full font-semibold ${statusPill(article.status)}`}
+                  >
+                    {article.status}
+                  </span>
+                </div>
+                <p className="text-xs text-[#777777] truncate mb-2">
                   {article.deck}
                 </p>
-                <p className={`text-xs mt-2 ${isSelected ? 'text-gray-400' : 'text-gray-400'}`}>
-                  {article.author} · {article.status} ·{' '}
-                  {article.publishAt ? article.publishAt : 'Not scheduled'}
-                </p>
+                <span className="text-[10px] uppercase tracking-widest text-[#aaaaaa]">
+                  {article.author}
+                </span>
               </li>
             );
           })}

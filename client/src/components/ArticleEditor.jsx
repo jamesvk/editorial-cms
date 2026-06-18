@@ -18,6 +18,7 @@ export default function ArticleEditor() {
     isCreating,
     createArticle,
     updateArticle,
+    deleteArticle,
     selectArticle,
   } = useArticles();
   const [draft, setDraft] = useState(null);
@@ -80,98 +81,96 @@ export default function ArticleEditor() {
     onChange: (e) => setDraft((prev) => ({ ...prev, [key]: e.target.value })),
   });
 
+  const labelClass =
+    'block text-[10px] font-semibold text-[#111111] uppercase tracking-widest mb-1.5';
   const inputClass =
-    'mt-1 block w-full rounded border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400';
+    'mt-1 block w-full rounded border border-[#e0e0e0] bg-white px-3 py-2 text-sm text-[#111111] focus:outline-none focus:ring-1 focus:ring-[#111111] transition-colors';
 
   if (!draft) {
     return (
-      <div className="flex flex-col items-center justify-center h-full text-gray-400">
-        <p className="text-sm">
-          Select an article or click + New to get started
+      <div className="w-full bg-[#f4f4f4] flex flex-col items-center justify-center min-h-[200px] md:h-full">
+        <p className="text-[10px] uppercase tracking-widest text-[#aaaaaa]">
+          Select an article or create a new one
         </p>
       </div>
     );
   }
 
   return (
-    <div className="p-6 max-w-3xl mx-auto">
-      <h2 className="text-sm font-semibold text-gray-900 uppercase tracking-widest mb-6">
-        {isCreating ? 'New Article' : 'Editor'}
+    <div className="w-full bg-[#f4f4f4] px-4 pt-5 pb-6">
+      <h2 className="text-[10px] font-bold text-[#111111] uppercase tracking-[0.2em] mb-5">
+        {isCreating ? ':: New Article ::' : ':: Edit Article ::'}
       </h2>
 
       {error && (
-        <p className="mb-4 text-sm text-red-600 bg-red-50 border border-red-200 rounded px-3 py-2">
+        <p className="mb-4 text-xs text-red-600 bg-red-50 border border-red-200 rounded px-3 py-2">
           {error}
         </p>
       )}
 
       <div className="space-y-4">
-        <label className="block">
-          <span className="text-sm font-medium text-gray-700">Headline</span>
+        <div>
+          <label className={labelClass}>Headline</label>
           <input className={inputClass} {...field('headline')} />
-        </label>
+        </div>
 
-        <label className="block">
-          <span className="text-sm font-medium text-gray-700">Deck</span>
+        <div>
+          <label className={labelClass}>Deck</label>
           <textarea
             className={`${inputClass} resize-none`}
             rows={2}
             {...field('deck')}
           />
-        </label>
+        </div>
 
         <div className="grid grid-cols-2 gap-4">
-          <label className="block">
-            <span className="text-sm font-medium text-gray-700">Author</span>
+          <div>
+            <label className={labelClass}>Author</label>
             <input className={inputClass} {...field('author')} />
-          </label>
+          </div>
 
-          <label className="block">
-            <span className="text-sm font-medium text-gray-700">Category</span>
+          <div>
+            <label className={labelClass}>Category</label>
             <select className={inputClass} {...field('category')}>
               <option value="Fashion">Fashion</option>
               <option value="Photography">Photography</option>
               <option value="Culture">Culture</option>
               <option value="Sports">Sports</option>
             </select>
-          </label>
+          </div>
 
-          <label className="block">
-            <span className="text-sm font-medium text-gray-700">Status</span>
+          <div>
+            <label className={labelClass}>Status</label>
             <select className={inputClass} {...field('status')}>
               <option value="Draft">Draft</option>
               <option value="In Review">In Review</option>
               <option value="Published">Published</option>
             </select>
-          </label>
+          </div>
 
-          <label className="block">
-            <span className="text-sm font-medium text-gray-700">
-              Publish At
-            </span>
+          <div>
+            <label className={labelClass}>Publish At</label>
             <input type="date" className={inputClass} {...field('publishAt')} />
-          </label>
+          </div>
         </div>
 
-        <label className="block">
-          <span className="text-sm font-medium text-gray-700">Body</span>
+        <div>
+          <label className={labelClass}>Body</label>
           <textarea
             className={`${inputClass} resize-none`}
             rows={8}
             {...field('body')}
           />
-        </label>
+        </div>
 
         {/* Tags */}
-        <fieldset className="border border-gray-200 rounded p-3">
-          <legend className="text-sm font-medium text-gray-700 px-1">
-            Tags
-          </legend>
-          <div className="flex flex-wrap gap-2 mb-3">
+        <div>
+          <label className={labelClass}>Tags</label>
+          <div className="flex flex-wrap gap-2 mb-2">
             {draft.tags?.map((tag) => (
               <span
                 key={tag}
-                className="flex items-center gap-1 bg-gray-100 text-gray-700 text-xs rounded px-2 py-1"
+                className="flex items-center gap-1 bg-[#e0e0e0] text-[#111111] text-xs rounded px-2.5 py-1"
               >
                 {tag}
                 <button
@@ -182,7 +181,7 @@ export default function ArticleEditor() {
                       tags: prev.tags.filter((t) => t !== tag),
                     }))
                   }
-                  className="text-gray-400 hover:text-gray-700 leading-none"
+                  className="text-[#888888] hover:text-[#111111] leading-none transition-colors"
                 >
                   ×
                 </button>
@@ -192,7 +191,7 @@ export default function ArticleEditor() {
           <div className="flex gap-2">
             <input
               ref={tagInputRef}
-              className="flex-1 rounded border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
+              className="flex-1 rounded border border-[#e0e0e0] bg-white px-3 py-1.5 text-sm text-[#111111] focus:outline-none focus:ring-1 focus:ring-[#111111]"
               placeholder="Add a tag"
             />
             <button
@@ -211,28 +210,43 @@ export default function ArticleEditor() {
                 tagInputRef.current.value = '';
                 tagInputRef.current.focus();
               }}
-              className="rounded bg-gray-100 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-200"
+              className="rounded border border-[#e0e0e0] bg-white px-3 py-1.5 text-sm text-[#111111] hover:bg-[#f0f0f0] transition-colors"
             >
               Add
             </button>
           </div>
-        </fieldset>
+        </div>
       </div>
 
-      <div className="flex gap-3 mt-6">
+      <div className="flex gap-3 mt-8">
         <button
           onClick={handleSave}
           disabled={saving}
-          className="rounded bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50 transition-colors"
+          className="px-6 py-2.5 bg-[#111111] text-white text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#333333] disabled:opacity-40 transition-colors"
         >
           {saving ? 'Saving…' : isCreating ? 'Create' : 'Save'}
         </button>
         <button
           onClick={handleCancel}
-          className="rounded border border-gray-300 px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 transition-colors"
+          className="px-6 py-2.5 bg-white border border-[#cccccc] text-[#444444] text-[10px] uppercase tracking-[0.2em] hover:bg-[#f0f0f0] transition-colors"
         >
           Cancel
         </button>
+        {!isCreating && (
+          <button
+            onClick={async () => {
+              if (
+                !window.confirm('Delete this article? This cannot be undone.')
+              )
+                return;
+              await deleteArticle(draft._id);
+              selectArticle(null);
+            }}
+            className="ml-auto px-6 py-2.5 bg-red-500 text-white text-[10px] uppercase tracking-[0.2em] hover:bg-red-600 transition-colors"
+          >
+            Delete
+          </button>
+        )}
       </div>
     </div>
   );
