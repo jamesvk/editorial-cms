@@ -97,7 +97,7 @@ export default function ArticleEditor() {
   }
 
   return (
-    <div className="w-full bg-[#f4f4f4] px-4 pt-5 pb-6">
+    <div className="w-full bg-[#f4f4f4] px-4 pt-5 pb-4">
       <h2 className="text-[10px] font-bold text-[#111111] uppercase tracking-[0.2em] mb-5">
         {isCreating ? ':: New Article ::' : ':: Edit Article ::'}
       </h2>
@@ -191,7 +191,7 @@ export default function ArticleEditor() {
           <div className="flex gap-2">
             <input
               ref={tagInputRef}
-              className="flex-1 rounded border border-[#e0e0e0] bg-white px-3 py-1.5 text-sm text-[#111111] focus:outline-none focus:ring-1 focus:ring-[#111111]"
+              className="w-56 rounded border border-[#e0e0e0] bg-white px-3 py-1.5 text-sm text-[#111111] focus:outline-none focus:ring-1 focus:ring-[#111111]"
               placeholder="Add a tag"
             />
             <button
@@ -242,7 +242,7 @@ export default function ArticleEditor() {
               await deleteArticle(draft._id);
               selectArticle(null);
             }}
-            className="ml-auto px-6 py-2.5 bg-red-500 text-white text-[10px] uppercase tracking-[0.2em] hover:bg-red-600 transition-colors"
+            className="px-6 py-2.5 bg-red-500 text-white text-[10px] uppercase tracking-[0.2em] hover:bg-red-600 transition-colors"
           >
             Delete
           </button>

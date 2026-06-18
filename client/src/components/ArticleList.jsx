@@ -53,7 +53,7 @@ export default function ArticleList() {
                 }`}
               >
                 <div className="flex items-start justify-between gap-2 mb-1">
-                  <h3 className="text-sm font-semibold text-[#111111] leading-snug">
+                  <h3 className="text-sm font-semibold text-[#111111] leading-snug truncate">
                     {article.headline}
                   </h3>
                   <span
