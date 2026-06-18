@@ -65,9 +65,19 @@ export default function ArticleList() {
                 <p className="text-xs text-[#777777] truncate mb-2">
                   {article.deck}
                 </p>
-                <span className="text-[10px] uppercase tracking-widest text-[#aaaaaa]">
-                  {article.author}
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] uppercase tracking-widest text-[#aaaaaa]">
+                    {article.author}
+                  </span>
+                  {article.publishAt && (
+                    <>
+                      <span className="text-[#dddddd]">·</span>
+                      <span className="text-[10px] uppercase tracking-widest text-[#aaaaaa]">
+                        {article.publishAt}
+                      </span>
+                    </>
+                  )}
+                </div>
               </li>
             );
           })}
